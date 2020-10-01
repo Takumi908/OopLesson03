@@ -13,19 +13,20 @@ namespace Chapter04 {
         private static string GetProduct() {
             Sale sale = new Sale {
                 ShopName = "pet store",
-                Amount = 100000,
                 Product = "food"
             };
             sale = null;
-            return sale?.Product;  //nullならProduct呼び出す
+            return sale?.Product;  //nullでないならProduct呼び出す
         }
     }
 
     class Sale {
        //店舗名
        public string ShopName { get; set; }
-       //売上高
-       public int Amount { get; set; }
-       public string Product { get; set; }
+        //売上高
+        public int Amount { get; set; } = 100000;
+        public string Product { get => product; set => product = value; }
+
+        private string product;
     }
 }
