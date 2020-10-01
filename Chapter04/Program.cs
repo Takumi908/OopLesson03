@@ -7,18 +7,25 @@ using System.Threading.Tasks;
 namespace Chapter04 {
     class Program {
         static void Main(string[] args) {
-            string code = "12345";
+            Console.WriteLine(GetProduct());
 
-            var message = GetMessage(code) ?? DefaultMessage();
-            Console.WriteLine(message);
         }
-         //スタブ
-        private static object DefaultMessage() {
-            return "DefaultMessage";
+        private static string GetProduct() {
+            Sale sale = new Sale {
+                ShopName = "pet store",
+                Amount = 100000,
+                Product = "food"
+            };
+            sale = null;
+            return sale?.Product;  //nullならProduct呼び出す
         }
-        //スタブ
-        private static object GetMessage(string code) {
-            return 10;
-        }
+    }
+
+    class Sale {
+       //店舗名
+       public string ShopName { get; set; }
+       //売上高
+       public int Amount { get; set; }
+       public string Product { get; set; }
     }
 }
