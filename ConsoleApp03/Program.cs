@@ -42,10 +42,7 @@ namespace ConsoleApp03
                 var nameCounts = names.Where(s => s.StartsWith("B")).Select(s => s.Length);
                 foreach (var length in nameCounts) {
                     Console.WriteLine(length);
-
-                }
-            }
-
+                 }
             }
         }
     }

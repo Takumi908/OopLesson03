@@ -15,6 +15,8 @@ namespace Chapter04 {
             Month = month;
         }
 
+
+
         //4-1-2
         //Is21Centuryプロパティを追加
         public bool Is21Century {
