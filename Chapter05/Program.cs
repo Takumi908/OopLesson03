@@ -8,7 +8,8 @@ using System.Xml;
 namespace Chapter05 {
     class Program {
         static void Main(string[] args) {
-
+            string mozi = "Jackdaws love my big sphinx of quartz ";
+            var lines = "Novelist=谷崎潤一郎;BestWork=春琴抄;Born=1886";
             /*
             //5-1-1
             String mozia, mozib;
@@ -36,8 +37,6 @@ namespace Chapter05 {
                */
 
             //5-3-1
-            string mozi = "Jackdaws love my big sphinx of quartz ";
-           
             var count = mozi.Count(m => m == ' ');
             Console.WriteLine($"空白は{count}文字です。");
 
@@ -46,11 +45,11 @@ namespace Chapter05 {
             Console.WriteLine(replaced);
 
             //5-3-3
-            var words = mozi.Split(new[]{' ', '_' },StringSplitOptions.RemoveEmptyEntries);
+            var words = mozi.Split(new[] { ' ', '_' }, StringSplitOptions.RemoveEmptyEntries);
             Console.WriteLine($"文字列moziは{words.Length}個の単語です");
 
             //5-3-4
-            var fors  =  mozi.Split(' ').Where(w => w.Length <= 4);
+            var fors = mozi.Split(' ').Where(w => w.Length <= 4);
             foreach (var item in fors) {
                 Console.WriteLine(item);
             }
@@ -64,8 +63,24 @@ namespace Chapter05 {
             var text = sb.ToString();
             Console.WriteLine(text);
 
-
+            //5-4
+            Console.WriteLine("---5-4---");
+            foreach (var item in lines.Split(';')) {
+                var word = item.Split('=');
+                Console.WriteLine("{0};{1}", ToJapanse(word[0]),word[1]);
+            }
         }
-
+            static string ToJapanse(string key) {
+                switch (key) {
+                    case "Novelist":
+                        return "作家　";
+                    case "BestWork":
+                        return "代表策";
+                    case "Born":
+                        return "誕生年";
+                    default:
+                        return "      ";
+            }
+        }
     }
 }
