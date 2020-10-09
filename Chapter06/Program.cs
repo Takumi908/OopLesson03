@@ -1,54 +1,52 @@
-﻿using System;
+﻿using Chapter06;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml.Serialization;
 
-namespace Chapter06 {
+namespace Chapter6 {
     class Program {
         static void Main(string[] args) {
-            //整数の例
-            var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
-
-             //重複排除
-            var strings = numbers.Distinct().ToArray();
-            foreach (var str in strings) {
-                Console.WriteLine(str + " ");
+            var numbers = new int[] { 5, 10, 17, 9, 3, 21, 10, 40, 21, 3, 35 };
+            Exercise1_1(numbers);
+            Console.WriteLine("-----");
+            Exercise1_2(numbers);
+            Console.WriteLine("-----");
+            Exercise1_3(numbers);
+            Console.WriteLine("-----");
+            Exercise1_4(numbers);
+            Console.WriteLine("-----");
+            Exercise1_5(numbers);
+        }
+        private static void Exercise1_1(int[] numbers) {
+            Console.WriteLine(numbers.Max());
+        }
+        private static void Exercise1_2(int[] numbers) {
+            int pos = numbers.Length - 2;
+            foreach (var number in numbers.Skip(pos)) {
+                Console.Write(number + " ");
             }
-             
+            Console.WriteLine();
+        }
 
-            numbers.Select(n => n.ToString("0000")).ToList().ForEach(s => Console.WriteLine(s + " "));
-
-            //並べ替え
-            Console.WriteLine();   //改行
-            var sortedNumbers = numbers.OrderBy(n => n);
-            foreach (var item in sortedNumbers) {
-                Console.Write(item+ " ");
+        private static void Exercise1_3(int[] numbers) {
+            var strNums = numbers.Select(n => n.ToString());
+            foreach (var str in strNums) {
+                Console.Write(str + " ");
             }
+            Console.WriteLine();
+        }
 
-            //文字列の例
-            Console.WriteLine("\n\n---------");
-            var words = new List<string> {
-             "Microsoft","Apple","Google","Oracle","Facebook",};
-
-            //ToArray()を付けることで即時実行
-            //ないと遅延実行(処理をする時に初めて実行される）
-            var lower = words.Select(name => name.ToLower()).ToArray();
-
-            //オブジェクトの例
-            var books = Books.GetBooks();
-            //タイトルリスト
-            var titles = books.Select(name => name.Title); 
-            foreach (var title in titles) {
-                Console.WriteLine(title + " ");
+        private static void Exercise1_4(int[] numbers) {
+            foreach (var number in numbers.OrderBy(n => n).Take(3)) {
+                Console.Write(number + " ");
             }
+            Console.WriteLine();
+        }
 
-            //ページ数の多い順に並べ替え(または金額の多い順)
-            var sortpage = books.OrderByDescending(n=> n.Pages).Take(3);
-            foreach (var item in sortpage) {
-                Console.WriteLine(item);
-            } 
+        private static void Exercise1_5(int[] numbers) {
+            Console.WriteLine(numbers.Distinct().Count(n => n > 10));
         }
     }
 }
