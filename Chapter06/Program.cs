@@ -11,7 +11,7 @@ namespace Chapter06 {
             //整数の例
             var numbers = new List<int> { 19, 17, 15, 24, 12, 25, 14, 20, 12, 28, 19, 30, 24 };
 
-            
+             //重複排除
             var strings = numbers.Distinct().ToArray();
             foreach (var str in strings) {
                 Console.WriteLine(str + " ");
@@ -48,8 +48,7 @@ namespace Chapter06 {
             var sortpage = books.OrderByDescending(n=> n.Pages).Take(3);
             foreach (var item in sortpage) {
                 Console.WriteLine(item);
-            }
-            
+            } 
         }
     }
 }
