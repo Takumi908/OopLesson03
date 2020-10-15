@@ -14,7 +14,7 @@ namespace Chapter6 {
     class Program {
         static void Main(string[] args) {
             var books = new List<Book> {
-               new Book { Title = "C#プログラミングの新常識", Price = 3800, Pages = 378 },
+               new Book { Title = "C#プログラミングの新常識[C#]", Price = 3800, Pages = 378 },
                new Book { Title = "ラムダ式とLINQの極意", Price = 2500, Pages = 312 },
                new Book { Title = "ワンダフル・C#ライフ", Price = 2900, Pages = 385 },
                new Book { Title = "一人で学ぶ並列処理プログラミング", Price = 4800, Pages = 464 },
@@ -22,12 +22,29 @@ namespace Chapter6 {
                new Book { Title = "私でも分かったASP.NET MVC", Price = 3200, Pages = 453 },
                new Book { Title = "楽しいC#プログラミング教室", Price = 2540, Pages = 348 },
             };
+
+            //C#チェック
+            var Check = books.Count(b => b.Title.Contains("C#"));
+                Console.WriteLine(Check);
+
+
+            int count = 0;
+            foreach (var item in books.Where(b=>b.Title.Contains("C#"))) {
+                for (int i = 0; i < item.Title.Length -1; i++) {   //末尾がCだと参照中に止まってしまうので-1
+                    if ((item.Title[i]=='C') && (item.Title[i+1] =='#')) {
+                        count++;
+                    }
+                }
+            }
+            Console.WriteLine($"文字列[C#]の個数は{count}");
         }
 
         //6-2-1
         private static void Exercise2_1(List<Book> books) {
             var book = books.FirstOrDefault(b => b.Title == "ワンダフル・C#ライフ");
-            Console.WriteLine(book);
+            if (book!= null) {
+                Console.WriteLine( $"{book.Price} {book.Pages}");
+            }
         }
 
         //6-2-2
