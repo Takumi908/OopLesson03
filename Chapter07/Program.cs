@@ -1,54 +1,57 @@
-﻿using Section01;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Chapter07 {
+
+    // List 7-20
     class Program {
         static void Main(string[] args) {
-            var text = "Cozy lummox gives smart squid who asks for job pen";
-            Exercise1_1(text);
-          //  Exercise1_2(text);
-        }
-        static void Exercise1_1(string text) {
-            var dict = new Dictionary<char, int>();
+            // コンストラクタ呼び出し
+            var abbrs = new Abbreviations();
 
-            foreach (var item in text.ToUpper()) {
-
-                if ('A' <= item && item <= 'Z') {
-                    if (dict.ContainsKey(item)) {
-                        dict[item] ++;
-                    } else {
-                        dict.Add(item, 1);
-                    }
-                }
+            //7-2-3
+            Console.WriteLine(abbrs.Count);
+            if (abbrs.Remove("NPT")) {
+                Console.WriteLine("削除成功");
+            } else {
+                Console.WriteLine("削除失敗");
             }
-            foreach (var item in dict.OrderBy(x => x.Key)) {
-                Console.WriteLine($"'{item.Key}':{item.Value}");
-            }
-        }
+            //7-2-4
 
-        static void Exercise1_2(string text) {
-            var dict = new SortedDictionary<char, int>();
+            // Addメソッドの呼び出し例
+            abbrs.Add("IOC", "国際オリンピック委員会");
+            abbrs.Add("NPT", "核兵器不拡散条約");
 
-            foreach (var item in text.ToUpper()) {
+            // インデクサの利用例
+            var names = new[] { "WHO", "FIFA", "NPT", };
+            foreach (var name in names) {
+                var fullname = abbrs[name];
+                if (fullname == null)
+                    Console.WriteLine("{0}は見つかりません", name);
+                else
+                    Console.WriteLine("{0}={1}", name, fullname);
+            }
+            Console.WriteLine();
 
-                if ('A' <= item && item <= 'Z') {
-                    if (dict.ContainsKey(item)) {
-                        dict[item] += 1;
-                    } else {
-                        dict.Add(item, 1);
-                    }
-                }
+            // ToAbbreviationメソッドの利用例
+            var japanese = "東南アジア諸国連合";
+            var abbreviation = abbrs.ToAbbreviation(japanese);
+            if (abbreviation == null)
+                Console.WriteLine("{0} は見つかりません", japanese);
+            else
+                Console.WriteLine("「{0}」の略語は {1} です", japanese, abbreviation);
+            Console.WriteLine();
+
+            // FindAllメソッドの利用例
+            foreach (var item in abbrs.FindAll("国際")) {
+                Console.WriteLine("{0}={1}", item.Key, item.Value);
             }
-            foreach (var item in dict) {
-                Console.WriteLine($"'{item.Key}':{item.Value}");
-            }
+            Console.WriteLine();
         }
     }
 }
