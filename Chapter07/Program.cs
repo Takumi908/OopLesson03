@@ -11,38 +11,43 @@ using System.Threading.Tasks;
 namespace Chapter07 {
     class Program {
         static void Main(string[] args) {
-            var dict = new Dictionary<string, List<string>>() { };
+            var text = "Cozy lummox gives smart squid who asks for job pen";
+            Exercise1_1(text);
+          //  Exercise1_2(text);
+        }
+        static void Exercise1_1(string text) {
+            var dict = new Dictionary<char, int>();
 
-            Console.WriteLine("**********************");
-            Console.WriteLine("* 辞書登録プログラム *");
-            Console.WriteLine("**********************");
-           
-         
-            while (true) {
-                Console.WriteLine("1.登録 2.内容を表示 3.終了 ");
-                int x = int.Parse(Console.ReadLine());
-                if (x == 1) {
-                    // ディクショナリに追加
-                    Console.Write("KEYを入力:");
-                    var key = Console.ReadLine();
-                    Console.Write("VALUEを入力:");
-                    var value = Console.ReadLine();
+            foreach (var item in text.ToUpper()) {
 
-                    if (dict.ContainsKey(key)) {
-                        dict[key].Add(value);
+                if ('A' <= item && item <= 'Z') {
+                    if (dict.ContainsKey(item)) {
+                        dict[item] ++;
                     } else {
-                        dict[key] = new List<string> { value };
+                        dict.Add(item, 1);
                     }
-                    Console.WriteLine("登録しました!");
-                } else if (x == 2) {
-                    foreach (var item in dict) {
-                        foreach (var term in item.Value) {
-                            Console.WriteLine("{0} : {1}", item.Key, term);
-                        }
-                    }
-                } else if (x == 3) {
-                    break;
                 }
+            }
+            foreach (var item in dict.OrderBy(x => x.Key)) {
+                Console.WriteLine($"'{item.Key}':{item.Value}");
+            }
+        }
+
+        static void Exercise1_2(string text) {
+            var dict = new SortedDictionary<char, int>();
+
+            foreach (var item in text.ToUpper()) {
+
+                if ('A' <= item && item <= 'Z') {
+                    if (dict.ContainsKey(item)) {
+                        dict[item] += 1;
+                    } else {
+                        dict.Add(item, 1);
+                    }
+                }
+            }
+            foreach (var item in dict) {
+                Console.WriteLine($"'{item.Key}':{item.Value}");
             }
         }
     }
